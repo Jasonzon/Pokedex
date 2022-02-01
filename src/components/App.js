@@ -2,29 +2,32 @@ import Banner from './Banner';
 import Select from './Select';
 import Pokedex from './Pokedex';
 import {useState} from "react"
-import SoloDex from './SoloDex';
 
 function App() {
-  const [inputValue, setInputValue] = useState("")
-  const [TypesList, setTypesList] = useState([])
-  const [activePokemon, setActivePokemon] = useState("")
-  const [PokemonList, setPokemonList] = useState([])
+  const [inputValue, setInputValue] = useState("") //modif a chaque fois qu'on écrit dans l'input (donc re-render tous les poke)
+  const [TypesList, setTypesList] = useState([]) //jamais modifié
+  const [PokemonList, setPokemonList] = useState([]) //jamais modifié
+  const [activeType, setActiveType] = useState(TypesList) //modif quand on coche les types à rechercher
+
   async function getPokemons() {
       const fet = await fetch("https://pokeapi.co/api/v2/pokemon?limit=25")
       const j = await fet.json()
       const k = await j.results
       setPokemonList(k)
   }
-  getPokemons()
+  if (PokemonList.length === 0) {
+    getPokemons() //OK
+  }
 
-  const [activeType, setActiveType] = useState(TypesList)
   async function getTypes() {
     const fet = await fetch("https://pokeapi.co/api/v2/type")
     const j = await fet.json()
     const k = await j.results
     setTypesList(k);
   }
-  getTypes()
+  if (TypesList.length === 0) {
+    getTypes() //OK
+  }
 
   return (
     <div>
@@ -34,24 +37,12 @@ function App() {
         setInputValue={setInputValue} 
         TypesList={TypesList}
         activeType={activeType} 
-        setActiveType={setActiveType}
+        setActiveType={setActiveType} //OK
       />
       <Pokedex 
         inputValue={inputValue} 
-        setInputValue={setInputValue} 
-        TypesList={TypesList}
         activeType={activeType} 
-        setActiveType={setActiveType}
-        activePokemon={activePokemon}
-        setActivePokemon={setActivePokemon}
         PokemonList={PokemonList}
-        setPokemonList={setPokemonList}
-      />
-      <SoloDex 
-        activePokemon={activePokemon}
-        setActivePokemon={setActivePokemon}
-        PokemonList={PokemonList}
-        setPokemonList={setPokemonList}
       />
     </div>
   )

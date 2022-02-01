@@ -1,7 +1,7 @@
 import "../styles/SoloDex.css"
 import Pokemon from "./Pokemon"
 
-function SoloDex({activePokemon, setActivePokemon, PokemonList, setPokemonList}) {
+function SoloDex({activePokemon, PokemonList}) {
     return (
         <div>
             {PokemonList.map(({name, url}) =>

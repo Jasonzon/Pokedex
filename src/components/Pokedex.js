@@ -1,9 +1,18 @@
 import '../styles/Pokedex.css'
 import black from "../assets/pixelball.png"
+import SoloDex from "./SoloDex"
+import {useState} from "react"
 
-function Pokedex({inputValue, setInputValue, activeType, setActiveType, activePokemon, setActivePokemon, PokemonList, setPokemonList}) { 
+function Pokedex({inputValue, activeType, PokemonList}) { 
+    const [activePokemon, setActivePokemon] = useState("") //modif quand on clique sur un poke
+
     return (
         <div>
+            <SoloDex 
+                activePokemon={activePokemon}
+                PokemonList={PokemonList}
+            />
+            <div>
             <ul className="pokedex-pokemon-list">
                 {PokemonList.map(({name, url}, index) => 
                     name.includes(inputValue) ? (
@@ -15,6 +24,7 @@ function Pokedex({inputValue, setInputValue, activeType, setActiveType, activePo
                     </div>) : null 
                 )}
             </ul>
+            </div>
         </div>
     )
 }

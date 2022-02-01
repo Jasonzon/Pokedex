@@ -11,7 +11,9 @@ function Pokemon({name, url}) {
         const j = await fet.json()
         setThePokemon([j])
     }
-    getPokemon()
+    if (ThePokemon.length === 0) {
+        getPokemon()
+    }
     return ( 
         <div className="pokemon-item">
             {ThePokemon.map(({id, sprites, height, weight, types}) => <>
@@ -25,10 +27,10 @@ function Pokemon({name, url}) {
                 <span className="pokemon-height">Taille: {height} dm</span>
                 <span className="pokemon-weight">Poids: {weight} hg</span>
                 <ul className="pokemon-types">
-                    {types.map(({Type},index) => <>
+                    {types.map(({type},index) => <>
                         <div key={index}>
                             <PokemonTypes 
-                                type={Type}
+                                type={type.name}
                             />
                         </div>
                 </> )}
