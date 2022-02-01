@@ -13,7 +13,7 @@ function Pokemon({name, url}) {
     }
     getPokemon()
     return ( 
-        <li className="pokemon-item">
+        <div className="pokemon-item">
             {ThePokemon.map(({id, sprites, height, weight, types}) => <>
                 <span className="pokemon-name-id">{name} No.{id}</span>
                 <img className='pokemon-image' src={sprites.front_default} alt={`${name}`} />
@@ -31,10 +31,10 @@ function Pokemon({name, url}) {
                                 type={Type}
                             />
                         </div>
-                    </> )}
+                </> )}
                 </ul>
            </> )}
-        </li> 
+        </div> 
     )
 }
 
