@@ -6,5 +6,21 @@
     border:3px solid black;
     padding:30px;
     width:605px;
-    height:500px;
+    height:300px;
+}
+
+.pokemon-name-id {
+    text-transform:capitalize;
+    font-size:25px;
+    position:absolute;
+}
+
+.pokemon-image {
+    margin-top:38px;
+}
+
+.pokemon-div-types {
+    display:flex;
+    flex-direction: row;
+    align-items: space-between;
 }

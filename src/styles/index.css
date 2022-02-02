@@ -17,4 +17,8 @@ code {
   src: local("Minecraft"),
    url("../fonts/Minecraft.ttf") format("truetype");
   font-weight: bold;
-  }
+}
+
+ul {
+  list-style-type: none;
+}

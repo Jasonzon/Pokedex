@@ -2,9 +2,9 @@ import "../styles/PokemonTypes.css"
 
 function PokemonTypes({type}) {
     return (
-        <li className={`pokemon-type-${type}`}>
+        <div className={`pokemon-type-${type}`}>
             <span>{type}</span>
-        </li>
+        </div>
     )
 }
 
