@@ -50,3 +50,8 @@ function App() {
 }
 
 export default App;
+
+/*
+let song = new Audio(my_song);
+song.play();
+song.pause();*/

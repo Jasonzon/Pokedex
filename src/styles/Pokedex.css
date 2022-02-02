@@ -3,8 +3,9 @@
     border-radius: 10px 10px 10px 10px;
     margin:5px;
     border:2px solid black;
-    width:50%;
+    width:80%;
     height:100%;
+    min-width:200px;
     cursor: pointer;
 }
 
@@ -17,7 +18,8 @@
     border-radius: 10px 10px 10px 10px;
     margin:5px;
     border:2px solid black;
-    width:50%;
+    width:74%;
+    min-width:200px;
     height:100%;
     cursor: pointer;
 }
@@ -31,3 +33,12 @@
     padding-left:60px;
 }
 
+.pokedex {
+    display:flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.pokedex-pokemon-list {
+    width:90%;
+}
