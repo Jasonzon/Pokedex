@@ -1,7 +1,29 @@
 .pokedex-pokemon-span {
-    background-color: #ff0000;
+    background-color: #f00020;
     border-radius: 10px 10px 10px 10px;
     margin:5px;
+    border:2px solid black;
+    width:50%;
+    height:100%;
+    cursor: pointer;
+}
+
+.pokedex-pokemon-span:hover {
+    background-color: #ffd700;
+}
+
+.pokedex-pokemon-span-selected {
+    background-color: #ffe524;
+    border-radius: 10px 10px 10px 10px;
+    margin:5px;
+    border:2px solid black;
+    width:50%;
+    height:100%;
+    cursor: pointer;
+}
+
+.pokedex-pokemon-span-selected:hover {
+    background-color: #ffd700;
 }
 
 .name {

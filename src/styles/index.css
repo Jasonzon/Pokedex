@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "Minecraft";
+  src: local("Minecraft"),
+   url("../fonts/Minecraft.ttf") format("truetype");
+  font-weight: bold;
+  }

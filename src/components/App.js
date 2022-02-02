@@ -2,6 +2,7 @@ import Banner from './Banner';
 import Select from './Select';
 import Pokedex from './Pokedex';
 import {useState} from "react"
+import "../styles/App.css"
 
 function App() {
   const [inputValue, setInputValue] = useState("") //modif a chaque fois qu'on écrit dans l'input (donc re-render tous les poke)

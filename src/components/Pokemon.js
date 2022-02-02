@@ -18,7 +18,7 @@ function Pokemon({name, url}) {
         <div className="pokemon-item">
             {ThePokemon.map(({id, sprites, height, weight, types}) => <>
                 <span className="pokemon-name-id">{name} No.{id}</span>
-                <img className='pokemon-image' src={sprites.front_default} alt={`${name}`} />
+                <img className='pokemon-image' src={sprites.other.dream_world.front_default} alt={`${name}`} width="250" height="250"/>
                 <div className="pokemon-gender">
                     <span>Gender :</span>
                     <img className="pokemon-blue-ball" src={blue} alt="blue pokeball" />

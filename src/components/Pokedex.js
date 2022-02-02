@@ -16,8 +16,11 @@ function Pokedex({inputValue, activeType, PokemonList}) {
             <ul className="pokedex-pokemon-list">
                 {PokemonList.map(({name, url}, index) => 
                     name.includes(inputValue) ? (
-                    <div key={index} className="pokedex-pokemon-span">
-                        <li onClick={() => setActivePokemon(name)}>
+                    <div key={index} className="font-face-gm" >
+                        <li 
+                            className={activePokemon===name ?"pokedex-pokemon-span-selected":"pokedex-pokemon-span"}
+                            onClick={() => setActivePokemon(name)} 
+                        >
                             <img src={black} alt="logo-black-pokeball" width="25" height="25"/>
                             <span className="name">{name}</span>
                         </li>
@@ -30,3 +33,4 @@ function Pokedex({inputValue, activeType, PokemonList}) {
 }
 
 export default Pokedex
+//onClick={() => name===activePokemon? (setActiveStyle("pokedex-pokemon-span-selected")):null}
