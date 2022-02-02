@@ -1,6 +1,6 @@
 import '../styles/Pokemon.css'
 import PokemonTypes from "./PokemonTypes"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 
 function Pokemon({name, url}) {
     const [ThePokemon, setThePokemon] = useState([])
@@ -10,9 +10,17 @@ function Pokemon({name, url}) {
         const j = await fet.json()
         setThePokemon([j])
     }
-    if (ThePokemon.length === 0) {
-        getPokemon()
+    
+    useEffect(() => getPokemon(),[])
+
+    const [specie, setSpecie] = useState([])
+    async function getSpecie() {
+        const fet = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
+        const j = await fet.json()
+        setSpecie([j])
     }
+
+    useEffect(() => getSpecie(),[])
     
     return (
         <div>
@@ -37,13 +45,26 @@ function Pokemon({name, url}) {
                 </div>
            </> )}
            </div>
-           <div className="pokemon-item-secondary">
-                {ThePokemon.map(({height, weight}) =>
+           <div className="pokemon-item-tertiary font-face-gm">
+                {specie.map(({evolution_chain,flavor_text_entries,genera,habitat,is_baby,is_legendary,is_mythical,shape,varieties}) => <>
+                    {flavor_text_entries.map(({flavor_text,language,version}) => <> 
+                        {language.name=="en" && version.name=="shield" ? <span className="pokemon-flavor-text">{flavor_text}</span> :null}
+                    </>)}
+                    <span className="pokemon-genera">{genera[7].genus}</span>
+                    <span className="pokemon-habitat">Habitat: {habitat.name}</span>
+                    {is_baby ? <span className="pokemon-baby">baby pokemon</span>:null}
+                    {is_mythical ? <span className="pokemon-mythical">mythical pokemon</span>:null}
+                    {is_legendary ? <span className="pokemon-legendary">legendary pokemon</span>:null}
+                    <span className="pokemon-shape">Shape: {shape.name}</span>
+             </>  )}
+             <div className="pokemon-item-secondary">
+                {ThePokemon.map(({height, weight}) => <>
                     <div className="pokemon-height-weight">
-                        <span className="pokemon-height font-face-gm">Taille: {height/10} m</span>
-                        <span className="pokemon-weight font-face-gm">Poids: {weight/10} kg</span>
+                        <span className="pokemon-height font-face-gm">Height: {height/10} m</span>
+                        <span className="pokemon-weight font-face-gm">Weight: {weight/10} kg</span>
                     </div>
-                )}
+                    </> )}
+           </div>
            </div>
         </div>
         {isLoaded ? null :<div className="pokemon-item-not-loaded"></div>}

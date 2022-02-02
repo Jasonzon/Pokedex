@@ -1,7 +1,7 @@
 import Banner from './Banner';
 import Select from './Select';
 import Pokedex from './Pokedex';
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import "../styles/App.css"
 
 function App() {
@@ -16,9 +16,7 @@ function App() {
       const k = await j.results
       setPokemonList(k)
   }
-  if (PokemonList.length === 0) {
-    getPokemons() //OK
-  }
+  useEffect(() => getPokemons(),[])
 
   async function getTypes() {
     const fet = await fetch("https://pokeapi.co/api/v2/type")
@@ -26,9 +24,7 @@ function App() {
     const k = await j.results
     setTypesList(k);
   }
-  if (TypesList.length === 0) {
-    getTypes() //OK
-  }
+  useEffect(() => getTypes(),[])
 
   return (
     <div>
