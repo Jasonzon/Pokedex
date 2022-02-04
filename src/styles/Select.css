@@ -1,0 +1,10 @@
+.select {
+    background-color: #d81832;
+    width:22%;
+    float:left;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding:15px;
+    min-width:150px;
+}

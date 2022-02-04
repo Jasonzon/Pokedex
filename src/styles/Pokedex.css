@@ -36,9 +36,12 @@
 .pokedex {
     display:flex;
     flex-direction: row;
-    justify-content: left;
+    background-color: #ff2d49;
 }
 
 .pokedex-pokemon-list {
     width:90%;
+}
+.pokedex-solodex {
+    margin-top:20px;
 }

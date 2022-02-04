@@ -10,6 +10,7 @@
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: white;
 }
 
 .pokemon-item-not-loaded {
@@ -22,7 +23,7 @@
     display:flex;
     flex-direction: row;
     justify-content: center;
-    background-color:white;
+    background-color: #ff2d49;
 }
 
 .pokemon-name-id {
@@ -54,7 +55,7 @@
     display:flex;
     flex-direction:column;
     justify-content: space-between;
-    height:40%;
+    height:60%;
     width:50%;
 }
 
@@ -65,4 +66,39 @@
 .pokemon-legendary,
 .pokemon-shape {
     margin-left:25%;
+}
+
+.pokemon-stats {
+    display:grid;
+    height:100px;
+    margin-top:20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(10px, auto);
+    border-radius:10px 10px 10px 10px;
+    padding:5px;
+    border:1px solid black;
+}
+
+.pokemon-baby {
+    background-color: #FFB6C1;
+}
+
+.pokemon-mythical {
+    background-color: #7F00FF;
+}
+
+.pokemon-legendary {
+    background-color: #FF69B4;
+}
+
+.pokemon-baby,
+.pokemon-mythical,
+.pokemon-legendary {
+    border-radius:5px 5px 5px 5px;
+    width:200px;
+    height:25px;
+    text-align:center;
+    padding-top:7px;
+    margin-left:35px;
 }

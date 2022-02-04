@@ -1,5 +1,6 @@
 import '../styles/Select.css'
 //import {useState, useEffect} from "react"
+import Types from "./Types"
 
 function Select({inputValue, setInputValue, TypesList, activeType, setActiveType}) {
 	function handleInput(e) {
@@ -7,12 +8,17 @@ function Select({inputValue, setInputValue, TypesList, activeType, setActiveType
 	}
 
     return (
-        <div>
-            	<input
-                    placeholder='Recherchez un Pokemon'
-                    onChange={handleInput}
-                    value={inputValue}
-			    />
+        <div className="select">
+            <input
+                placeholder='Recherchez un Pokemon'
+                onChange={handleInput}
+                value={inputValue}
+			/>
+           <Types
+				TypesList={TypesList}
+				setActiveType={setActiveType}
+				activeType={activeType}
+			/>
         </div>
     )
 }

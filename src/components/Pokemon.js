@@ -48,7 +48,7 @@ function Pokemon({name, url}) {
            <div className="pokemon-item-tertiary font-face-gm">
                 {specie.map(({evolution_chain,flavor_text_entries,genera,habitat,is_baby,is_legendary,is_mythical,shape,varieties}) => <>
                     {flavor_text_entries.map(({flavor_text,language,version}) => <> 
-                        {language.name=="en" && version.name=="shield" ? <span className="pokemon-flavor-text">{flavor_text}</span> :null}
+                        {language.name==="en" && version.name==="shield" ? <span className="pokemon-flavor-text">{flavor_text}</span> :null}
                     </>)}
                     <span className="pokemon-genera">{genera[7].genus}</span>
                     <span className="pokemon-habitat">Habitat: {habitat.name}</span>
@@ -58,12 +58,24 @@ function Pokemon({name, url}) {
                     <span className="pokemon-shape">Shape: {shape.name}</span>
              </>  )}
              <div className="pokemon-item-secondary">
-                {ThePokemon.map(({height, weight}) => <>
+                {ThePokemon.map(({height, weight,stats}) => <>
                     <div className="pokemon-height-weight">
                         <span className="pokemon-height font-face-gm">Height: {height/10} m</span>
                         <span className="pokemon-weight font-face-gm">Weight: {weight/10} kg</span>
                     </div>
-                    </> )}
+                    {specie.length===0 ? (
+                    <div className="pokemon-stats">
+                        {stats.map(({base_stat,stat},index) => <>
+                            <span>{stat.name}: {base_stat}</span>
+                        </>)}
+                    </div> ) : (
+                        <div className="pokemon-stats" style={{backgroundColor: `${specie[0].color.name}`}}>
+                        {stats.map(({base_stat,stat},index) => <>
+                            <span>{stat.name}: {base_stat}</span>
+                        </>)}
+                    </div>
+                    )}
+                </> )}
            </div>
            </div>
         </div>
