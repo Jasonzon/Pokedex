@@ -2,7 +2,7 @@ import '../styles/Pokemon.css'
 import PokemonTypes from "./PokemonTypes"
 import {useState, useEffect} from "react"
 
-function Pokemon({name, url}) {
+function Pokemon({name, url, scrollPosition}) {
     const [ThePokemon, setThePokemon] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
     async function getPokemon() {
@@ -24,7 +24,8 @@ function Pokemon({name, url}) {
     
     return (
         <div>
-        <div className="pokemon-item">
+        <div className="pokemon-item" style={{top:`${scrollPosition-100}px`}}>
+            <div className="pokemon-first">
             <div className="pokemon-item-main">
                 {ThePokemon.map(({id, sprites, types}) => <>
                 <span className="pokemon-name-id font-face-gm">{name} No.{id}</span>
@@ -78,8 +79,15 @@ function Pokemon({name, url}) {
                 </> )}
            </div>
            </div>
+           </div>
+           <div className="pokemon-evolutions">
+            evolutions
+            </div>
         </div>
-        {isLoaded ? null :<div className="pokemon-item-not-loaded"></div>}
+        {isLoaded ? null :<div>
+            <div className="pokemon-item-not-loaded" style={{top:`${scrollPosition+120}px`}}></div>
+            <div className="pokemon-item-not-loaded2"></div>
+        </div>}
         </div>
     )
 }

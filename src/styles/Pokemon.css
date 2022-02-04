@@ -7,23 +7,32 @@
     padding:30px;
     width:605px;
     height:500px;
+    background-color: white;
+}
+
+.pokemon-first {
     display:flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: white;
+    height:65%;
+}
+
+.pokemon-evolutions {
+    height:35%;
 }
 
 .pokemon-item-not-loaded {
     position:absolute;
     float:right;
-    margin-right:30px;
+    margin-left:10px;
     padding:30px;
-    width:610px;
-    height:510px;
+    width:595px;
+    height:495px;
     display:flex;
     flex-direction: row;
     justify-content: center;
-    background-color: #ff2d49;
+    background-color: white;
+    margin-top:5px;
 }
 
 .pokemon-name-id {
@@ -66,6 +75,8 @@
 .pokemon-legendary,
 .pokemon-shape {
     margin-left:25%;
+    margin-top:10px;
+    margin-bottom:10px;
 }
 
 .pokemon-stats {

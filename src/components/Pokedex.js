@@ -33,10 +33,25 @@ function Pokedex() {
     
     const [activeType, setActiveType] = useState(TypesList)
     const [idSelected,setIdSelected] = useState("id")
-    console.log(idSelected)
     const [PokemonListSorted, setPokemonListSorted] = useState(PokemonList)
     useEffect(() => setPokemonListSorted(PokemonList.slice(0).sort((a,b) => a.name > b.name ? 1 : -1)),[PokemonList])
-    console.log(PokemonListSorted)
+
+    //Debut du test scroll position
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+    
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    });
+    
+    //Fin du test scroll position
     return (
         <div className="pokedex">
             <Select 
@@ -83,6 +98,7 @@ function Pokedex() {
                 <SoloDex 
                     activePokemon={activePokemon}
                     PokemonList={PokemonList}
+                    scrollPosition={scrollPosition}
                 />
             </div>
         </div>

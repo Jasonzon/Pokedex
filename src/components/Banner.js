@@ -4,7 +4,7 @@ import logo from '../assets/pokedex.png'
 function Banner() {
     return (
         <div className="banner">
-            <img src={logo} alt="logo-pokedex" />
+            <img className="logo-pokedex" src={logo} alt="logo-pokedex" />
         </div>
     )
 }
