@@ -35,7 +35,8 @@ function Pokedex() {
     const [idSelected,setIdSelected] = useState("id")
     console.log(idSelected)
     const [PokemonListSorted, setPokemonListSorted] = useState(PokemonList)
-    useEffect(() => setPokemonListSorted(PokemonListSorted.sort((a,b) => a.name > b.name ? 1 : -1)),[PokemonList])
+    useEffect(() => setPokemonListSorted(PokemonList.slice(0).sort((a,b) => a.name > b.name ? 1 : -1)),[PokemonList])
+    console.log(PokemonListSorted)
     return (
         <div className="pokedex">
             <Select 
