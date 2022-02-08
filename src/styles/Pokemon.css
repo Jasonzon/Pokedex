@@ -113,3 +113,40 @@
     padding-top:7px;
     margin-left:35px;
 }
+
+.pokemon-forms {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height:40%;
+    width:100%;
+    text-align:center;
+    margin-top:10px;
+}
+
+.evolutions {
+    height:100%;
+    width:100%;
+}
+
+.mega {
+    height:100%;
+    width:100%;
+}
+
+.regional {
+    height:100%;
+    width:100%;
+}
+
+.evolve-image,
+.form-image,
+.mega-image {
+    display:flex;
+    flex-direction:row;
+    margin-left:22px;
+}
+
+.evolve-image {
+    cursor: pointer;
+}

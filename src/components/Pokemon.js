@@ -1,10 +1,15 @@
 import '../styles/Pokemon.css'
 import PokemonTypes from "./PokemonTypes"
 import {useState, useEffect} from "react"
+import stop from "../assets/stop.png"
+import white from "../assets/white.png"
 
 function Pokemon({name, url, scrollPosition}) {
     const [ThePokemon, setThePokemon] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
+    const [isLoaded2, setIsLoaded2] = useState(false)
+    const [isLoaded3, setIsLoaded3] = useState(false)
+    const [isLoaded4, setIsLoaded4] = useState(false)
     async function getPokemon() {
         const fet = await fetch(url)
         const j = await fet.json()
@@ -21,6 +26,101 @@ function Pokemon({name, url, scrollPosition}) {
     }
 
     useEffect(() => getSpecie(),[])
+
+    const [evolutions, setEvolutions] = useState([])
+    const [mega, setMega] = useState([])
+    const [regional, setRegional] = useState([])
+    const [actualMega, setActualMega] = useState()
+    const [actualEvolution, setActualEvolution] = useState()
+    const [actualRegional, setActualRegional] = useState()
+
+    async function getEvolutions() {
+        if (specie.length !== 0) {
+            let tab = []
+            let nb_evo = 0
+            const fet = await fetch(specie[0].evolution_chain.url)
+            const j = await fet.json()
+            let k = await j.chain 
+            if (k.species.name === name) {
+                if (k.evolves_to.length !== 0) {
+                    for (let i in k.evolves_to) {
+                        nb_evo++
+                        const fet2 = await fetch(`https://pokeapi.co/api/v2/pokemon/${k.evolves_to[i].species.name}`)
+                        const j2 = await fet2.json()
+                        await tab.push(j2)
+                        
+                    }
+                }
+                setEvolutions(tab) //tableau de names
+                if (nb_evo !== 0) {
+                    await setActualEvolution(tab[0].sprites.other.home.front_default)
+                }
+                else {
+                    await setActualEvolution(stop)
+                }
+            }
+            else {
+                if (k.evolves_to[0].evolves_to.length !== 0 && k.evolves_to[0].species.name === name) {
+                    for (let i in k.evolves_to[0].evolves_to) {
+                        nb_evo++
+                        const fet2 = await fetch(`https://pokeapi.co/api/v2/pokemon/${k.evolves_to[0].evolves_to[i].species.name}`)
+                        const j2 = await fet2.json()
+                        await tab.push(j2)
+                    }
+                }
+                setEvolutions(tab) //tableau de names   
+                if (nb_evo !== 0) {
+                    await setActualEvolution(tab[0].sprites.other["official-artwork"].front_default)
+                }
+                else {
+                    await setActualEvolution(stop)
+                }
+            }
+            
+        }
+    }
+    useEffect(() => getEvolutions(),[specie])
+
+    async function getForms() {
+        if (specie.length !== 0) {
+            let tab_mega = []
+            let tab_regional = []
+            let nb_mega = 0
+            let nb_form = 0
+            for (let i in specie[0].varieties) {
+                if (specie[0].varieties[i].pokemon.name.includes("mega")) {
+                    nb_mega++
+                    const fet = await fetch(specie[0].varieties[i].pokemon.url)
+                    const j = await fet.json()
+                    await tab_mega.push(j.sprites.other["official-artwork"].front_default)
+                    
+                }
+                else{
+                    if (specie[0].varieties[i].pokemon.name !== name) {
+                        nb_form++
+                        const fet = await fetch(specie[0].varieties[i].pokemon.url)
+                        const j = await fet.json()
+                        await tab_regional.push(j.sprites.other["official-artwork"].front_default)
+                    }
+                } 
+            }
+            setMega(tab_mega)
+            setRegional(tab_regional)
+            if (nb_mega !== 0) {
+                await setActualMega(tab_mega[0])
+            }
+            else {
+                await setActualMega(stop)
+            }
+            if (nb_form !== 0) {
+                await setActualRegional(tab_regional[0])
+            }
+            else {
+                await setActualRegional(stop)
+            }
+        }
+    }
+    useEffect(() => getForms(),[specie])
     
     return (
         <div>
@@ -47,7 +147,7 @@ function Pokemon({name, url, scrollPosition}) {
            </> )}
            </div>
            <div className="pokemon-item-tertiary font-face-gm">
-                {specie.map(({evolution_chain,flavor_text_entries,genera,habitat,is_baby,is_legendary,is_mythical,shape,varieties}) => <>
+                {specie.map(({flavor_text_entries,genera,habitat,is_baby,is_legendary,is_mythical,shape,varieties}) => <>
                     {flavor_text_entries.map(({flavor_text,language,version}) => <> 
                         {language.name==="en" && version.name==="shield" ? <span className="pokemon-flavor-text">{flavor_text}</span> :null}
                     </>)}
@@ -80,11 +180,23 @@ function Pokemon({name, url, scrollPosition}) {
            </div>
            </div>
            </div>
-           <div className="pokemon-evolutions">
-            evolutions
+            <div className="pokemon-forms font-face-gm">
+                <div className="evolutions">
+                    <span className="evolve-span">evolutions</span>
+                    <img className='evolve-image' src={actualEvolution} alt="evolution" width="170" height="170" onLoad={() => setIsLoaded2(true)}/> 
+                </div>
+                <div className="mega">
+                    <span className="mega-span">mega</span>
+                    <img className='mega-image' src={actualMega} alt="mega" width="170" height="170" onLoad={() => setIsLoaded3(true)}/> 
+                </div>
+                <div className="regional">
+                    <span className="forms-span">forms</span>
+                    <img className='form-image' src={actualRegional} alt="form" width="170" height="170" onLoad={() => setIsLoaded4(true)}/> 
+                </div>
             </div>
         </div>
-        {isLoaded ? null :<div>
+        {console.log(isLoaded, isLoaded2, isLoaded3, isLoaded4, actualEvolution)}
+        {isLoaded && isLoaded2 && isLoaded3 && isLoaded4 ? null :<div>
             <div className="pokemon-item-not-loaded" style={{top:`${scrollPosition+120}px`}}></div>
             <div className="pokemon-item-not-loaded2"></div>
         </div>}
@@ -93,3 +205,4 @@ function Pokemon({name, url, scrollPosition}) {
 }
 
 export default Pokemon
+
