@@ -27,7 +27,7 @@
     margin-left:10px;
     padding:30px;
     width:595px;
-    height:495px;
+    height:500px;
     display:flex;
     flex-direction: row;
     justify-content: center;
@@ -149,4 +149,32 @@
 
 .evolve-image {
     cursor: pointer;
+}
+
+.evolve-div,
+.mega-div,
+.form-div {
+    display:flex;
+    flex-direction:row;
+    width:150px;
+    justify-content:space-between;
+    margin-left:30px;
+    margin-top:-30px;
+}
+
+.arrow-left,
+.arrow-right {
+    background-color:#ff2d49;
+    padding:4px;
+    border:solid black 1px;
+    border-radius:10px 10px 10px 10px;
+    cursor:pointer;
+}
+
+.arrow-left-disabled,
+.arrow-right-disabled {
+    background-color: #696969;
+    padding:4px;
+    border:solid black 1px;
+    border-radius:10px 10px 10px 10px;
 }

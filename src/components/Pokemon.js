@@ -2,9 +2,10 @@ import '../styles/Pokemon.css'
 import PokemonTypes from "./PokemonTypes"
 import {useState, useEffect} from "react"
 import stop from "../assets/stop.png"
-import white from "../assets/white.png"
+import arrow_left from "../assets/arrow_left.png"
+import arrow_right from "../assets/arrow_right.png"
 
-function Pokemon({name, url, scrollPosition}) {
+function Pokemon({name, url, scrollPosition, setActivePokemon}) {
     const [ThePokemon, setThePokemon] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
     const [isLoaded2, setIsLoaded2] = useState(false)
@@ -31,7 +32,7 @@ function Pokemon({name, url, scrollPosition}) {
     const [mega, setMega] = useState([])
     const [regional, setRegional] = useState([])
     const [actualMega, setActualMega] = useState()
-    const [actualEvolution, setActualEvolution] = useState()
+    const [actualEvolution, setActualEvolution] = useState([])
     const [actualRegional, setActualRegional] = useState()
 
     async function getEvolutions() {
@@ -53,10 +54,10 @@ function Pokemon({name, url, scrollPosition}) {
                 }
                 setEvolutions(tab) //tableau de names
                 if (nb_evo !== 0) {
-                    await setActualEvolution(tab[0].sprites.other.home.front_default)
+                    await setActualEvolution(tab)
                 }
                 else {
-                    await setActualEvolution(stop)
+                    await setActualEvolution([stop])
                 }
             }
             else {
@@ -70,10 +71,10 @@ function Pokemon({name, url, scrollPosition}) {
                 }
                 setEvolutions(tab) //tableau de names   
                 if (nb_evo !== 0) {
-                    await setActualEvolution(tab[0].sprites.other["official-artwork"].front_default)
+                    await setActualEvolution(tab)
                 }
                 else {
-                    await setActualEvolution(stop)
+                    await setActualEvolution([stop])
                 }
             }
             
@@ -96,7 +97,7 @@ function Pokemon({name, url, scrollPosition}) {
                     
                 }
                 else{
-                    if (specie[0].varieties[i].pokemon.name !== name) {
+                    if (specie[0].varieties[i].pokemon.name !== name && specie[0].varieties[i].pokemon.name !== "pikachu-cosplay") {
                         nb_form++
                         const fet = await fetch(specie[0].varieties[i].pokemon.url)
                         const j = await fet.json()
@@ -147,7 +148,7 @@ function Pokemon({name, url, scrollPosition}) {
            </> )}
            </div>
            <div className="pokemon-item-tertiary font-face-gm">
-                {specie.map(({flavor_text_entries,genera,habitat,is_baby,is_legendary,is_mythical,shape,varieties}) => <>
+                {specie.map(({flavor_text_entries,genera,habitat,is_baby,is_legendary,is_mythical,shape}) => <>
                     {flavor_text_entries.map(({flavor_text,language,version}) => <> 
                         {language.name==="en" && version.name==="shield" ? <span className="pokemon-flavor-text">{flavor_text}</span> :null}
                     </>)}
@@ -183,19 +184,51 @@ function Pokemon({name, url, scrollPosition}) {
             <div className="pokemon-forms font-face-gm">
                 <div className="evolutions">
                     <span className="evolve-span">evolutions</span>
-                    <img className='evolve-image' src={actualEvolution} alt="evolution" width="170" height="170" onLoad={() => setIsLoaded2(true)}/> 
+                    {actualEvolution.length !== 0 && actualEvolution[0] !== stop ?
+                    <img className='evolve-image' src={actualEvolution[0].sprites.other["official-artwork"].front_default} alt="evolution" 
+                        width="170" height="170" onLoad={() => setIsLoaded2(true)} onClick={() => actualEvolution[0] === stop ? null : setActivePokemon(actualEvolution[0].name)}/> :
+                    <img src={actualEvolution[0]} alt="no pokemon" 
+                    width="170" height="170" onLoad={() => setIsLoaded2(true)}/> }
+                    {actualEvolution.length === 0 || actualEvolution[0] === stop ? null :
+                    <div className="evolve-div">
+                        {evolutions.length !== 0 && actualEvolution[0] !== evolutions[0] ?
+                        <img className="arrow-left" src={arrow_left} alt="left arrow" width="25" height="25" onClick={() => setActualEvolution([evolutions.find((element,index) => evolutions[index+1] === actualEvolution[0])])}/> :
+                        <img className="arrow-left-disabled" src={arrow_left} alt="left arrow" width="25" height="25"/> }
+                        {evolutions.length !== 0 && actualEvolution[0] !== evolutions[evolutions.length-1] ?
+                        <img className="arrow-right" src={arrow_right} alt="right arrow" width="25" height="25" onClick={() => setActualEvolution([evolutions.find((element,index) => evolutions[index-1] === actualEvolution[0])])}/> :
+                        <img className="arrow-right-disabled" src={arrow_right} alt="right arrow" width="25" height="25"/> }
+                    </div> }
                 </div>
                 <div className="mega">
                     <span className="mega-span">mega</span>
-                    <img className='mega-image' src={actualMega} alt="mega" width="170" height="170" onLoad={() => setIsLoaded3(true)}/> 
+                    <img className='mega-image' src={actualMega} alt="mega" 
+                        width="170" height="170" onLoad={() => setIsLoaded3(true)}/> 
+                    {actualMega === stop ? null :
+                    <div className="mega-div">
+                        {mega.length !== 0 && actualMega !== mega[0] ?
+                        <img className="arrow-left" src={arrow_left} alt="left arrow" width="25" height="25" onClick={() => setActualMega(mega.find((element,index) => mega[index+1] === actualMega))}/> :
+                        <img className="arrow-left-disabled" src={arrow_left} alt="left arrow" width="25" height="25"/> }
+                        {mega.length !== 0 && actualMega !== mega[mega.length-1] ?
+                        <img className="arrow-right" src={arrow_right} alt="right arrow" width="25" height="25" onClick={() => setActualMega(mega.find((element,index) => mega[index-1] === actualMega))}/> :
+                        <img className="arrow-right-disabled" src={arrow_right} alt="right arrow" width="25" height="25"/> }
+                    </div> }
                 </div>
                 <div className="regional">
                     <span className="forms-span">forms</span>
-                    <img className='form-image' src={actualRegional} alt="form" width="170" height="170" onLoad={() => setIsLoaded4(true)}/> 
+                    <img className='form-image' src={actualRegional} alt="form" 
+                    width="170" height="170" onLoad={() => setIsLoaded4(true)}/> 
+                    {actualRegional === stop ? null :
+                    <div className="form-div"> 
+                        {regional.length !== 0 && actualRegional !== regional[0] ? 
+                        <img className="arrow-left" src={arrow_left} alt="left arrow" width="25" height="25" onClick={() => setActualRegional(regional.find((element,index) => regional[index+1] === actualRegional))}/> :
+                        <img className="arrow-left-disabled" src={arrow_left} alt="left arrow" width="25" height="25"/> }
+                        {regional.length !== 0 && actualRegional !== regional[regional.length-1] ?
+                        <img className="arrow-right" src={arrow_right} alt="right arrow" width="25" height="25" onClick={() => setActualRegional(regional.find((element,index) => regional[index-1] === actualRegional))}/> :
+                        <img className="arrow-right-disabled" src={arrow_right} alt="right arrow" width="25" height="25"/> }
+                    </div> }
                 </div>
             </div>
         </div>
-        {console.log(isLoaded, isLoaded2, isLoaded3, isLoaded4, actualEvolution)}
         {isLoaded && isLoaded2 && isLoaded3 && isLoaded4 ? null :<div>
             <div className="pokemon-item-not-loaded" style={{top:`${scrollPosition+120}px`}}></div>
             <div className="pokemon-item-not-loaded2"></div>

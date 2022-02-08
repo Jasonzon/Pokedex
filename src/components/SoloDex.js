@@ -1,7 +1,7 @@
 import "../styles/SoloDex.css"
 import Pokemon from "./Pokemon"
 
-function SoloDex({activePokemon, PokemonList, scrollPosition}) {
+function SoloDex({activePokemon, PokemonList, scrollPosition, setActivePokemon}) {
     return (
         <div>
             {PokemonList.map(({name, url}) =>
@@ -10,6 +10,7 @@ function SoloDex({activePokemon, PokemonList, scrollPosition}) {
                     name={name}
                     url={url}
                     scrollPosition={scrollPosition}
+                    setActivePokemon={setActivePokemon}
                 /> ) : null
             )}
         </div>

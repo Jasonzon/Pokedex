@@ -12,7 +12,7 @@ function Pokedex() {
     
   
     async function getPokemons() {
-        const fet = await fetch("https://pokeapi.co/api/v2/pokemon?limit=25")
+        const fet = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
         const j = await fet.json()
         const k = await j.results
         setPokemonList(k)
@@ -97,6 +97,7 @@ function Pokedex() {
             <div className="pokedex-solodex">
                 <SoloDex 
                     activePokemon={activePokemon}
+                    setActivePokemon={setActivePokemon}
                     PokemonList={PokemonList}
                     scrollPosition={scrollPosition}
                 />
